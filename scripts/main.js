@@ -34,4 +34,14 @@ let frequencyData = new Float32Array(bufferSize);
 
 analyser.getFloatFrequencyData(frequencyData);
 
-console.log(frequencyData);
+audio.addEventListener("ended", () => {
+  audio.currentTime = 0;
+});
+
+// TODO: add function to start music
+
+document.body.onkeyup = function(e) {
+  if (e.keyCode == 32) {
+    audio.paused ? audio.play() : audio.pause();
+  }
+};
