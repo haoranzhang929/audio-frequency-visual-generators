@@ -33,27 +33,50 @@
 
     <div class="container">
       <div class="row">
-        <div class="col">
-          <form action="#">
-            <p class="range-field">
-              <span>Buffer Size: <span class="bufferText"></span></span>
-              <input
-                type="range"
-                id="slider"
-                min="512"
-                max="1024"
-                step="512"
-                value="512"
-              />
-            </p>
-          </form>
+        <div class="col s12 m6">
+          <div class="options">
+            <div>
+              <a class="waves-effect waves-light btn teal darken-3 sample-btn">
+                <i class="material-icons right">music_note</i>
+                <span>Load sample track</span>
+              </a>
+            </div>
+            <div>
+              <input type="file" id="audio-upload" accept="audio/*" />
+              <label
+                class="waves-effect waves-light btn teal darken-3"
+                for="audio-upload"
+              >
+                <i class="material-icons right">add</i>
+                <span>Choose an audio file</span>
+              </label>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <a class="waves-effect waves-light btn col s2 play-btn">
-          <i class="material-icons right">play_arrow</i>
-          <span>Play</span>
-        </a>
+
+        <div class="col s12 m6">
+          <div class="controls">
+            <a class="waves-effect waves-light btn play-btn disabled">
+              <i class="material-icons right">play_arrow</i>
+              <span>Play</span>
+            </a>
+
+            <div class="range">
+              <label>Buffer Size:</label>
+              <p class="range-field">
+                <input
+                  disabled
+                  type="range"
+                  id="slider"
+                  min="512"
+                  max="1024"
+                  step="512"
+                  value="512"
+                />
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div id="vizDiv"></div>
