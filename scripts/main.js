@@ -2,8 +2,23 @@
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 const analyser = audioCtx.createAnalyser();
-// TODO: Get fftSize from user Input
-analyser.fftSize = 1024;
+
+const slider = document.querySelector("#slider");
+const bufferText = document.querySelector(".bufferText");
+bufferText.innerText = slider.value;
+let sliderValue = slider.value * 2;
+analyser.fftSize = sliderValue;
+
+slider.addEventListener("change", () => {
+  audio.pause();
+  audio.currentTime = 0;
+  playBtn.children[0].innerText = "play_arrow";
+  playBtn.children[1].innerText = "Play";
+
+  bufferText.innerText = slider.value;
+  sliderValue = slider.value * 2;
+  analyser.fftSize = sliderValue;
+});
 
 const webAudioUnlock = context => {
   // Audio Context by default is diabled
@@ -25,7 +40,6 @@ const webAudioUnlock = context => {
 webAudioUnlock(audioCtx);
 
 // TODO: Allow user to upload Audio
-
 let audio = new Audio("./sample/In My Clouds.mp3");
 let audioSrc = audioCtx.createMediaElementSource(audio);
 audioSrc.connect(analyser);
@@ -39,6 +53,8 @@ analyser.getFloatFrequencyData(frequencyData);
 
 audio.addEventListener("ended", () => {
   audio.currentTime = 0;
+  playBtn.children[0].innerText = "play_arrow";
+  playBtn.children[1].innerText = "Play";
 });
 
 let mapsArr = [];
@@ -64,6 +80,10 @@ Plotly.plot("vizDiv", getData(0, mapsArr, frequencyData), {
 function render() {
   requestAnimationFrame(render);
 
+  if (audio.paused) {
+    return;
+  }
+
   // get real time frequency data and stores in Float32Array
   analyser.getFloatFrequencyData(frequencyData);
 
@@ -80,6 +100,10 @@ function render() {
     arrs.push(i);
   }
 
+  drawGraph(newData, arrs);
+}
+
+function drawGraph(data, arrs) {
   Plotly.relayout("vizDiv", {
     xaxis: {
       range: [0, Math.round(audio.duration)]
@@ -87,7 +111,7 @@ function render() {
     autosize: true
   });
 
-  Plotly.extendTraces("vizDiv", newData, arrs);
+  Plotly.extendTraces("vizDiv", data, arrs);
 }
 
 function getData(time, maps, frequencyData) {
@@ -124,10 +148,18 @@ function getData(time, maps, frequencyData) {
 
 render();
 
-// TODO: add function to start music
+const playBtn = document.querySelector(".play-btn");
 
-document.body.onkeyup = function(e) {
-  if (e.keyCode == 32) {
-    audio.paused ? audio.play() : audio.pause();
-  }
+audio.onloadedmetadata = () => {
+  playBtn.addEventListener("click", () => {
+    if (audio.paused) {
+      audio.play();
+      playBtn.children[0].innerText = "pause";
+      playBtn.children[1].innerText = "Pause";
+    } else {
+      audio.pause();
+      playBtn.children[0].innerText = "play_arrow";
+      playBtn.children[1].innerText = "Play";
+    }
+  });
 };
