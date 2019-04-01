@@ -103,18 +103,7 @@ function init(audioFilePath) {
       arrs.push(i);
     }
 
-    drawGraph(newData, arrs);
-  }
-
-  function drawGraph(data, arrs) {
-    Plotly.relayout("vizDiv", {
-      xaxis: {
-        range: [0, Math.round(audio.duration)]
-      },
-      autosize: true
-    });
-
-    Plotly.extendTraces("vizDiv", data, arrs);
+    drawGraph(audio, newData, arrs);
   }
 
   function getData(time, maps, frequencyData) {
@@ -165,4 +154,15 @@ function init(audioFilePath) {
       }
     });
   };
+}
+
+function drawGraph(audio, data, arrs) {
+  Plotly.relayout("vizDiv", {
+    xaxis: {
+      range: [0, Math.round(audio.duration)]
+    },
+    autosize: true
+  });
+
+  Plotly.extendTraces("vizDiv", data, arrs);
 }
