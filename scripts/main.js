@@ -20,6 +20,25 @@ input.addEventListener("change", e => {
   init(audioFilePath);
 });
 
+// default frequencyBinSelection
+let frequencyBinSelection = [0, 100, 256, 300, 400];
+
+let binBtn = document.querySelector("#bin-btn");
+let binVal = document.querySelector("#bin-text");
+
+let temBin = [];
+
+binBtn.addEventListener("click", () => {
+  if (binVal.value >= 0) {
+    let val = parseInt(binVal.value);
+    if (!temBin.includes(val)) {
+      temBin.push(val);
+      binVal.value = null;
+    }
+  }
+  frequencyBinSelection = temBin;
+});
+
 function init(audioFilePath) {
   // Resume audio context
   audioCtx.resume();
@@ -38,7 +57,6 @@ function init(audioFilePath) {
     playBtn.children[0].innerText = "play_arrow";
     playBtn.children[1].innerText = "Play";
 
-    bufferText.innerText = slider.value;
     sliderValue = slider.value * 2;
     analyser.fftSize = sliderValue;
   });
@@ -61,8 +79,6 @@ function init(audioFilePath) {
   });
 
   let mapsArr = [];
-  // TODO: Allow user to set frequencyBinSelection
-  let frequencyBinSelection = [0, 100, 256, 300, 400];
 
   for (let i = 0; i < frequencyBinSelection.length; i++) {
     mapsArr.push(new Map());

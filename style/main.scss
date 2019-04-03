@@ -45,4 +45,14 @@ body,
       position: absolute;
     }
   }
+
+  #bin {
+    display: flex;
+    justify-content: center;
+    #bin-text {
+      width: 50px;
+      margin-right: 20px;
+      align-self: center;
+    }
+  }
 }
