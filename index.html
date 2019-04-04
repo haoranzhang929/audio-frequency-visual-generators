@@ -5,12 +5,142 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Audio Frequency Visual Generator</title>
+    <!-- Roboto Font -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
+    />
+    <!-- Google Web Fonts -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <!-- Compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
     <link rel="stylesheet" href="./style/main.css" />
   </head>
   <body>
-    <div id="vizDiv"></div>
-    <!-- <script src="https://d3js.org/d3.v5.min.js"></script> -->
-    <!-- <script src="./scripts/libs/d3.js"></script> -->
+    <nav>
+      <div class="nav-wrapper">
+        <a href="#" class="brand-logo center"
+          >Audio Frequency Visual Generator</a
+        >
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="row">
+        <div class="col s12 m6">
+          <div class="bin-controls">
+            <div class="buffer-display">
+              <p>Buffer Size: <strong class="buffer"></strong></p>
+            </div>
+            <div class="range">
+              <p class="range-field">
+                <input
+                  type="range"
+                  id="slider"
+                  min="512"
+                  max="1024"
+                  step="512"
+                  value="512"
+                />
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col s12 m6">
+          <div class="bin-controls">
+            <div class="bin-display">
+              <p>
+                <span class="bin-desc">
+                  Frequency Bin Selection:
+                </span>
+                [<strong class="bin-selection"
+                  >0,5,10,50,100,200,300,400,500</strong
+                >]
+              </p>
+            </div>
+            <div class="bin">
+              <input type="number" class="validate" id="bin-text" min="0" />
+              <a
+                class="waves-effect waves-light btn teal darken-3 tooltipped"
+                data-position="bottom"
+                data-tooltip="Add Bin"
+                id="bin-btn"
+                ><i class="material-icons">add</i></a
+              >
+              <a
+                class="waves-effect waves-light btn lteal darken-1 tooltipped"
+                data-position="bottom"
+                data-tooltip="Remove Bin"
+                id="bin-remove"
+                ><i class="material-icons">remove</i></a
+              >
+              <a
+                class="waves-effect waves-light btn cyan darken-3 tooltipped"
+                data-position="bottom"
+                data-tooltip="Clear Bin"
+                id="bin-clear"
+                ><i class="material-icons">delete</i></a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col s12 m6">
+          <div class="options">
+            <div>
+              <a class="waves-effect waves-light btn teal darken-3 sample-btn">
+                <i class="material-icons right">music_note</i>
+                <span>sample track</span>
+              </a>
+            </div>
+            <div>or</div>
+            <div>
+              <input type="file" id="audio-upload" accept="audio/*" />
+              <label
+                class="waves-effect waves-light btn teal darken-3"
+                for="audio-upload"
+              >
+                <i class="material-icons right">add</i>
+                <span>load local track</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="col s12 m6">
+          <div class="controls">
+            <a class="waves-effect waves-light btn play-btn disabled">
+              <i class="material-icons right">play_arrow</i>
+              <span>Play</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div id="vizDiv"></div>
+    </div>
+
+    <div id="rotate">
+      <i class="material-icons" id="rotate-icon">
+        screen_rotation
+      </i>
+    </div>
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="./scripts/main.js"></script>
   </body>
