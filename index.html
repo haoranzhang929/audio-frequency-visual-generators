@@ -34,13 +34,79 @@
     <div class="container">
       <div class="row">
         <div class="col s12 m6">
+          <div class="bin-controls">
+            <div class="buffer-display">
+              <p>Buffer Size: <strong class="buffer"></strong></p>
+            </div>
+            <div class="range">
+              <p class="range-field">
+                <input
+                  type="range"
+                  id="slider"
+                  min="512"
+                  max="1024"
+                  step="512"
+                  value="512"
+                />
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col s12 m6">
+          <div class="bin-controls">
+            <div class="bin-display">
+              <p>
+                <span class="bin-desc">
+                  Frequency Bin Selection:
+                </span>
+                [<strong class="bin-selection"
+                  >0,5,10,50,100,200,300,400,500</strong
+                >]
+              </p>
+            </div>
+            <div class="bin">
+              <input type="number" class="validate" id="bin-text" min="0" />
+              <a
+                class="waves-effect waves-light btn teal darken-3 tooltipped"
+                data-position="bottom"
+                data-tooltip="Add Bin"
+                id="bin-btn"
+                ><i class="material-icons">add</i></a
+              >
+              <a
+                class="waves-effect waves-light btn lteal darken-1 tooltipped"
+                data-position="bottom"
+                data-tooltip="Remove Bin"
+                id="bin-remove"
+                ><i class="material-icons">remove</i></a
+              >
+              <a
+                class="waves-effect waves-light btn cyan darken-3 tooltipped"
+                data-position="bottom"
+                data-tooltip="Clear Bin"
+                id="bin-clear"
+                ><i class="material-icons">delete</i></a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col s12 m6">
           <div class="options">
             <div>
               <a class="waves-effect waves-light btn teal darken-3 sample-btn">
                 <i class="material-icons right">music_note</i>
-                <span>Load sample track</span>
+                <span>sample track</span>
               </a>
             </div>
+            <div>or</div>
             <div>
               <input type="file" id="audio-upload" accept="audio/*" />
               <label
@@ -48,7 +114,7 @@
                 for="audio-upload"
               >
                 <i class="material-icons right">add</i>
-                <span>Choose an audio file</span>
+                <span>load local track</span>
               </label>
             </div>
           </div>
@@ -60,33 +126,17 @@
               <i class="material-icons right">play_arrow</i>
               <span>Play</span>
             </a>
-
-            <div class="range">
-              <label>Buffer Size:</label>
-              <p class="range-field">
-                <input
-                  disabled
-                  type="range"
-                  id="slider"
-                  min="512"
-                  max="1024"
-                  step="512"
-                  value="512"
-                />
-              </p>
-            </div>
-
-            <div id="bin">
-              <input type="number" class="validate" id="bin-text" min="0" />
-              <a class="waves-effect waves-light btn teal darken-3" id="bin-btn"
-                ><i class="material-icons">add</i></a
-              >
-            </div>
           </div>
         </div>
       </div>
 
       <div id="vizDiv"></div>
+    </div>
+
+    <div id="rotate">
+      <i class="material-icons" id="rotate-icon">
+        screen_rotation
+      </i>
     </div>
 
     <!-- Compiled and minified JavaScript -->

@@ -10,6 +10,10 @@ body,
   height: 80px;
 }
 
+.bin-controls {
+  height: 100px;
+}
+
 .options {
   display: flex;
   justify-content: space-around;
@@ -31,6 +35,36 @@ body,
   }
 }
 
+.bin-controls {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  .range {
+    height: 50%;
+    align-self: center;
+    .range-field {
+      margin-top: 10px;
+    }
+  }
+  .bin {
+    height: 50%;
+    align-self: center;
+    #bin-text {
+      width: 50px;
+      margin-right: 20px;
+      align-self: center;
+    }
+    #bin-btn {
+      align-self: center;
+    }
+  }
+  .bin-display,
+  .buffer-display {
+    height: 50%;
+    align-self: center;
+  }
+}
+
 .controls {
   display: flex;
   justify-content: space-around;
@@ -39,19 +73,37 @@ body,
   div {
     align-self: center;
   }
+}
 
-  .range {
-    label {
-      position: absolute;
-    }
+@media (max-width: 769px) {
+  nav .brand-logo {
+    width: 100vw;
+    font-size: 1.5rem;
   }
+  .bin-desc {
+    display: none;
+  }
+}
 
-  #bin {
+#rotate {
+  display: none;
+}
+
+@media all and (orientation: portrait) {
+  #rotate {
     display: flex;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10;
+    top: 0;
+    background: #ddd;
+    opacity: 0.8;
     justify-content: center;
-    #bin-text {
-      width: 50px;
-      margin-right: 20px;
+    #rotate-icon {
+      font-size: 50vw;
+      z-index: 15;
+      opacity: 1;
       align-self: center;
     }
   }

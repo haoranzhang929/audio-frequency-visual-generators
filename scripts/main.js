@@ -3,40 +3,98 @@ window.AudioContext = window.AudioContext || window.webkitAudioContext;
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 const analyser = audioCtx.createAnalyser();
 
+document.addEventListener("DOMContentLoaded", function() {
+  var elems = document.querySelectorAll(".tooltipped");
+  var instances = M.Tooltip.init(elems);
+});
+
 const slider = document.querySelector("#slider");
+document.querySelector(".buffer").innerText = slider.value;
 let sliderValue = slider.value * 2;
 analyser.fftSize = sliderValue;
+
+let bufferSize;
 
 const input = document.querySelector("#audio-upload");
 const sampleBtn = document.querySelector(".sample-btn");
 
 // defalut sample track
 sampleBtn.addEventListener("click", () => {
+  if (frequencyBinSelection.length <= 0) {
+    return;
+  }
   init("./sample/In My Clouds.mp3");
 });
 
 input.addEventListener("change", e => {
+  if (frequencyBinSelection.length <= 0) {
+    return;
+  }
   audioFilePath = URL.createObjectURL(e.target.files[0]);
   init(audioFilePath);
 });
 
 // default frequencyBinSelection
-let frequencyBinSelection = [0, 100, 256, 300, 400];
+let frequencyBinSelection = [0, 5, 10, 50, 100, 200, 300, 400, 500];
 
-let binBtn = document.querySelector("#bin-btn");
-let binVal = document.querySelector("#bin-text");
+const binBtn = document.querySelector("#bin-btn");
+const binBtnRemove = document.querySelector("#bin-remove");
+const binBtnClear = document.querySelector("#bin-clear");
+const binVal = document.querySelector("#bin-text");
 
-let temBin = [];
+slider.addEventListener("change", () => {
+  sliderValue = slider.value * 2;
+  analyser.fftSize = sliderValue;
+  bufferSize = analyser.frequencyBinCount;
+  binVal.min = 0;
+  binVal.max = slider.value;
+  document.querySelector(".buffer").innerText = bufferSize;
+});
 
 binBtn.addEventListener("click", () => {
-  if (binVal.value >= 0) {
-    let val = parseInt(binVal.value);
-    if (!temBin.includes(val)) {
-      temBin.push(val);
+  let val = parseInt(binVal.value);
+  if (isNaN(val)) {
+    binVal.value = null;
+    return;
+  }
+  if (val >= 0 && val <= slider.value) {
+    if (!frequencyBinSelection.includes(val)) {
+      frequencyBinSelection.push(val);
+      binVal.value = null;
+    }
+    document.querySelector(
+      ".bin-selection"
+    ).innerText = frequencyBinSelection.sort((a, b) => a - b);
+  } else {
+    binVal.value = null;
+    return;
+  }
+});
+
+binBtnRemove.addEventListener("click", () => {
+  let val = parseInt(binVal.value);
+  if (isNaN(val)) {
+    binVal.value = null;
+    return;
+  }
+  if (frequencyBinSelection.includes(val)) {
+    let pos = frequencyBinSelection.indexOf(val);
+    if (pos > -1) {
+      frequencyBinSelection.splice(pos, 1);
       binVal.value = null;
     }
   }
-  frequencyBinSelection = temBin;
+  document.querySelector(
+    ".bin-selection"
+  ).innerText = frequencyBinSelection.sort((a, b) => a - b);
+});
+
+binBtnClear.addEventListener("click", () => {
+  binVal.value = null;
+  frequencyBinSelection = [];
+  document.querySelector(
+    ".bin-selection"
+  ).innerText = frequencyBinSelection.sort((a, b) => a - b);
 });
 
 function init(audioFilePath) {
@@ -49,7 +107,13 @@ function init(audioFilePath) {
     playBtn.classList.remove("disabled");
   }
 
-  slider.disabled = false;
+  let audio = new Audio(audioFilePath);
+  let audioSrc = audioCtx.createMediaElementSource(audio);
+  audioSrc.connect(analyser);
+  analyser.connect(audioCtx.destination);
+
+  bufferSize = analyser.frequencyBinCount;
+  let frequencyData = new Float32Array(bufferSize);
 
   slider.addEventListener("change", () => {
     audio.pause();
@@ -59,15 +123,9 @@ function init(audioFilePath) {
 
     sliderValue = slider.value * 2;
     analyser.fftSize = sliderValue;
+    bufferSize = analyser.frequencyBinCount;
+    frequencyData = new Float32Array(bufferSize);
   });
-
-  let audio = new Audio(audioFilePath);
-  let audioSrc = audioCtx.createMediaElementSource(audio);
-  audioSrc.connect(analyser);
-  analyser.connect(audioCtx.destination);
-
-  let bufferSize = analyser.frequencyBinCount;
-  let frequencyData = new Float32Array(bufferSize);
 
   // get init frequency data and stores in Float32Array
   analyser.getFloatFrequencyData(frequencyData);
@@ -85,7 +143,6 @@ function init(audioFilePath) {
   }
 
   Plotly.plot("vizDiv", getData(0, mapsArr, frequencyData), {
-    title: "Audio Frequency Analyser",
     autosize: true,
     xaxis: {
       title: "Seconds",

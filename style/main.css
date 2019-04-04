@@ -10,6 +10,10 @@ body,
   height: 80px;
 }
 
+.bin-controls {
+  height: 100px;
+}
+
 .options {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -36,6 +40,58 @@ body,
   color: #fff;
 }
 
+.bin-controls {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.bin-controls .range {
+  height: 50%;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+.bin-controls .range .range-field {
+  margin-top: 10px;
+}
+
+.bin-controls .bin {
+  height: 50%;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+.bin-controls .bin #bin-text {
+  width: 50px;
+  margin-right: 20px;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+.bin-controls .bin #bin-btn {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+.bin-controls .bin-display,
+.bin-controls .buffer-display {
+  height: 50%;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
 .controls {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -51,24 +107,43 @@ body,
       align-self: center;
 }
 
-.controls .range label {
-  position: absolute;
+@media (max-width: 769px) {
+  nav .brand-logo {
+    width: 100vw;
+    font-size: 1.5rem;
+  }
+  .bin-desc {
+    display: none;
+  }
 }
 
-.controls #bin {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+#rotate {
+  display: none;
 }
 
-.controls #bin #bin-text {
-  width: 50px;
-  margin-right: 20px;
-  -ms-flex-item-align: center;
-      -ms-grid-row-align: center;
-      align-self: center;
+@media all and (orientation: portrait) {
+  #rotate {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10;
+    top: 0;
+    background: #ddd;
+    opacity: 0.8;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  #rotate #rotate-icon {
+    font-size: 50vw;
+    z-index: 15;
+    opacity: 1;
+    -ms-flex-item-align: center;
+        -ms-grid-row-align: center;
+        align-self: center;
+  }
 }
 /*# sourceMappingURL=main.css.map */
