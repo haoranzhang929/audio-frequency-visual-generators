@@ -6,23 +6,26 @@ Audio Frequency Graph Generator is a reference tool for people who want to do we
 
 ## Getting Started
 
-[Demo Page](http://ec2-52-213-180-139.eu-west-1.compute.amazonaws.com/)  
+[Demo Page](http://ec2-52-213-180-139.eu-west-1.compute.amazonaws.com/)
 
-Load sample track or choose the audio file you want to generate a real-time frequency graph.
+1. Select buffer size
+2. Add/remove frequency bins according to the needs.
+3. Load sample track or choose the audio file.
+4. Click Play to generate a real-time frequency graph.
 
-Currently the default frequency bins for the demo page are set to:
+Default buffer size: ```512```
+
+Default frequency bins for the demo page are set to:
 
 ```
-let frequencyBinSelection = [0, 5, 10, 50, 100, 200, 300, 400, 500];
+[0, 5, 10, 50, 100, 200, 300, 400, 500]
 ```
-
-In the future version, the user will be able to select the desired frequency bins they want.
 
 ## Built With
 
-* [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/) - To analyse the audio's frequency data in real-time
-* [Plotly.js](https://plot.ly/javascript/) - Used to draw frequency data
-* [Materialize](https://materializecss.com/) - Used for the UI
+- [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/) - To analyse the audio's frequency data in real-time
+- [Plotly.js](https://plot.ly/javascript/) - Used to draw frequency data
+- [Materialize](https://materializecss.com/) - Used for the UI
 
 ## Author
 
