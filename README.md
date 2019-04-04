@@ -6,20 +6,16 @@ Audio Frequency Graph Generator is a reference tool for people who want to do we
 
 ## Getting Started
 
+1. Select buffer size
+2. Add or remove frequency bins according to the needs
+3. Load sample track or choose an local audio file
+4. Click play to generate real-time frequency graph
+
 [Demo Page](http://ec2-52-213-180-139.eu-west-1.compute.amazonaws.com/)
 
-1. Select buffer size
-2. Add/remove frequency bins according to the needs.
-3. Load sample track or choose the audio file.
-4. Click Play to generate a real-time frequency graph.
+Default buffer size: 512
 
-Default buffer size: ```512```
-
-Default frequency bins for the demo page are set to:
-
-```
-[0, 5, 10, 50, 100, 200, 300, 400, 500]
-```
+Default frequency bins: [0, 5, 10, 50, 100, 200, 300, 400, 500]
 
 ## Built With
 
@@ -27,10 +23,14 @@ Default frequency bins for the demo page are set to:
 - [Plotly.js](https://plot.ly/javascript/) - Used to draw frequency data
 - [Materialize](https://materializecss.com/) - Used for the UI
 
+## Credit
+
+Sample Audio: _[In My Clouds](https://soundcloud.com/lakeyinspired/in-my-clouds) by [LAKEY INSPIRED](https://soundcloud.com/lakeyinspired)_
+
 ## Author
 
 [Haoran Zhang](https://haoranzhang.me/)
 
 ## License
 
-This project is licensed under the MIT and Anti 996 License - see the [LICENSE.md](LICENSE) file for details
+This project is licensed under the MIT and Anti 996 License - see the [MIT LICENSE](LICENSE) and [ANTI 996 LICENSE](LICENSE_ANTI_996) file for details
